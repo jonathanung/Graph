@@ -10,8 +10,9 @@
  * @author Jonathan Ung
  */
 class WeightedEdge : public Edge {
-    int weight;
-    WeightedEdge(int a, int b, int c) : Edge(a, b) { weight = c; }
+    double weight;
+    WeightedEdge(int a, int b) : Edge(a, b) { weight = 0; }
+    WeightedEdge(int a, int b, double c) : Edge(a, b) { weight = c; }
     friend std::ostream& operator<<(std::ostream &, const WeightedEdge &);
 };
 
