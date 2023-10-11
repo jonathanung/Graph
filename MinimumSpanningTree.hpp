@@ -4,6 +4,11 @@
 #include "SpanningTree.hpp"
 #include <vector>
 
+/**
+ * @brief MinimumSpanningTree class
+ * 
+ * @author Jonathan UNg
+ */
 class MinimumSpanningTree : SpanningTree {
     private:
         double totalWeight;

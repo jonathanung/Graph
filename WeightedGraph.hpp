@@ -8,6 +8,11 @@
 #include "MinimumSpanningTree.hpp"
 
 template <class V>
+/**
+ * @brief Weighted Graph class
+ * 
+ * @author Jonathan Ung
+ */
 class WeightedGraph : public Graph<V>{
     protected:
         WeightedEdge *createEdge(int a, int b) { return new WeightedEdge(a, b); }

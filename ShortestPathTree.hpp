@@ -4,6 +4,11 @@
 #include "SpanningTree.hpp"
 #include <vector>
 
+/**
+ * @brief ShortestPathTree class
+ * 
+ * @author Jonathan Ung
+ */
 class ShortestPathTree : SpanningTree {
     private:
         std::vector<int> costs;
