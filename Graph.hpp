@@ -5,6 +5,8 @@
 #include "SpanningTree.hpp"
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <queue>
 
 template <class V>
 /**
@@ -43,6 +45,7 @@ class Graph {
         SpanningTree depthFirstSearch(int) const;
         SpanningTree breadthFirstSearch(int) const;
 };
+
 template <class V>
 Graph<V>::Graph() {
     vertices = std::vector<V>();
@@ -165,8 +168,8 @@ std::vector<V> Graph<V>::getNeighbors(int i) const {
     return nb;
 }
 
-template <class T>
-std::vector<std::vector<bool>> Graph<T>::getAdjacencyMatrix() const {
+template <class V>
+std::vector<std::vector<bool>> Graph<V>::getAdjacencyMatrix() const {
     std::vector<std::vector<bool>> mat = std::vector<std::vector<bool>>(size);
     for (size_t k = 0; k < size; k++) {
         for (size_t l = 0; l < size; l++) {
@@ -182,8 +185,8 @@ std::vector<std::vector<bool>> Graph<T>::getAdjacencyMatrix() const {
     return mat;
 }
 
-template <class T>
-void Graph<T>::printEdges() const {
+template <class V>
+void Graph<V>::printEdges() const {
     for (size_t i = 0; i < size; i++) {
         std::cout << "Index " << i << " holding Vertex " << vertices[i] << ": ";
         for (size_t j = 0; j < neighbors[i].size(); j++) {
@@ -194,8 +197,8 @@ void Graph<T>::printEdges() const {
     }
 }
 
-template <class T>
-void Graph<T>::printAdjacencyMatrix() const {
+template <class V>
+void Graph<V>::printAdjacencyMatrix() const {
     std::vector<std::vector<bool>> mat = getAdjacencyMatrix();
     for (size_t i = 0; i < mat.size(); i++) {
         std::cout << "Index " << i << " holding Vertex " << vertices[i] << ": " << "[  ";
@@ -206,8 +209,8 @@ void Graph<T>::printAdjacencyMatrix() const {
     }
 }
 
-template <class T>
-void Graph<T>::clear() {
+template <class V>
+void Graph<V>::clear() {
     vertices.clear();
     for (std::vector<Edge *> vec : neighbors) {
         for (Edge* e : vec) {
@@ -217,6 +220,65 @@ void Graph<T>::clear() {
     }
     neighbors.clear();
     size = 0;
+}
+
+template <class V>
+SpanningTree Graph<V>::depthFirstSearch(int v) const {
+    std::vector<int> searchOrders;
+    std::vector<int> parent(vertices.size());
+    std::vector<bool> visited(vertices.size());
+    for (size_t i = 0; i < vertices.size(); i++) {
+        parent[i] = -1;
+        visited[i] = false;
+    }
+    std::stack<int> next = std::stack<int>();
+    next.push(v);
+    visited[v] = true;
+    searchOrders.push_back(v);
+    while (!next.empty()) {
+        bool seen = false;
+        for (Edge* e : neighbors[next.top()]) {
+            if(!visited[e->p2]) {
+                visited[e->p2] = true;
+                parent[e->p2] = next.top();
+                next.push(e->p2);
+                searchOrders.push_back(e->p2);
+                seen = true;
+                break;
+            }
+        }
+        if (!seen) next.pop();
+    }
+    return SpanningTree(v, parent, searchOrders);
+}
+
+template <class V>
+SpanningTree Graph<V>::breadthFirstSearch(int v) const {
+    std::vector<int> searchOrders;
+    std::vector<int> parent(vertices.size());
+    std::vector<bool> visited(vertices.size());
+    for (size_t i = 0; i < vertices.size(); i++) {
+        parent[i] = -1;
+        visited[i] = false;
+    }
+    std::queue<int> next = std::queue<int>();
+    next.push(v);
+    visited[v] = true;
+    searchOrders.push_back(v);
+    while (!next.empty()) {
+        bool seen = false;
+        for (Edge* e : neighbors[next.front()]) {
+            if(!visited[e->p2]) {
+                visited[e->p2] = true;
+                parent[e->p2] = next.front();
+                next.push(e->p2);
+                searchOrders.push_back(e->p2);
+                seen = true;
+            }
+        }
+        if (!seen) next.pop();
+    }
+    return SpanningTree(v, parent, searchOrders);
 }
 
 #endif

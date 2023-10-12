@@ -15,6 +15,7 @@ class ShortestPathTree : SpanningTree {
     public:
         ShortestPathTree();
         ShortestPathTree(int, std::vector<int>, std::vector<int>, std::vector<int>);
+        ~ShortestPathTree() {}
         int getCost(int);
 };
 

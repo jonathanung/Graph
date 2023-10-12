@@ -13,6 +13,7 @@ class Edge {
         int p1;
         int p2;
         Edge(int a, int b) { p1 = a, p2 = b; }
+        ~Edge() {}
         friend std::ostream& operator<<(std::ostream &, const Edge &);
 };
 std::ostream& operator<<(std::ostream & o, const Edge & e) {

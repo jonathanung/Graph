@@ -6,6 +6,10 @@
 #include "SpanningTree.hpp"
 #include "ShortestPathTree.hpp"
 #include "MinimumSpanningTree.hpp"
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <queue>
 
 template <class V>
 /**
@@ -18,13 +22,14 @@ class WeightedGraph : public Graph<V>{
         WeightedEdge *createEdge(int a, int b) { return new WeightedEdge(a, b); }
         WeightedEdge *createEdge(int a, int b, double c) { return new WeightedEdge(a, b, c); }
     public:
-        WeightedGraph() : Graph<V>();
+        WeightedGraph() : Graph<V>() {}
         WeightedGraph(std::vector<V> &, std::vector<WeightedEdge> &, bool = false);
+        ~WeightedGraph() {}
         void printWeightedEdge() const;
         MinimumSpanningTree getMinimumSpanningTree() const;
         MinimumSpanningTree getMinimumSpanningTree(int) const;
         ShortestPathTree getShortestPath(int) const;
-        bool addEdges(int, int, double);
+        bool addEdge(int, int, double);
 };
 
 #endif
