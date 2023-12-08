@@ -14,9 +14,9 @@ class MinimumSpanningTree : SpanningTree {
         double totalWeight;
     public:
         MinimumSpanningTree();
-        MinimumSpanningTree(int, std::vector<int>, std::vector<int>, double);
+        MinimumSpanningTree(int r, std::vector<int> &p, std::vector<int> &sO, double tW) : SpanningTree(r, p, sO) { totalWeight = tW; }
         ~MinimumSpanningTree() {}
-        double getTotalWeight();
+        double getTotalWeight() { return totalWeight; }
 };
 
 #endif

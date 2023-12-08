@@ -11,12 +11,14 @@
  */
 class ShortestPathTree : SpanningTree {
     private:
-        std::vector<int> costs;
+        std::vector<double> costs;
     public:
-        ShortestPathTree();
-        ShortestPathTree(int, std::vector<int>, std::vector<int>, std::vector<int>);
+        ShortestPathTree() {}
+        ShortestPathTree(int r, std::vector<int> &p, std::vector<int> &sO, std::vector<double> &c) : SpanningTree(r, p, sO) { costs = c; }
         ~ShortestPathTree() {}
-        int getCost(int);
+        int getCost(int i) { return costs[i]; }
 };
+
+
 
 #endif
