@@ -10,7 +10,7 @@
  * @author Jonathan Ung
  */
 class SpanningTree {
-    private:
+    protected:
         int root;
         std::vector<int> parent;
         std::vector<int> searchOrders;
