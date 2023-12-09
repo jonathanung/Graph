@@ -43,6 +43,7 @@ class WeightedGraph : public Graph<V>{
         ShortestPathTree dijkstraShortestPath(int) const; //TODO
         ShortestPathTree bellmanFordShortestPath(int) const; //TODO
         bool relax(WeightedEdge *, std::vector<double> &, std::vector<int>& parent) const;
+        bool hasNegativeCycle() const;
         /* other algorithms that could be implemented:
         ShortestPathTree floydWarshallShortestPath(int) const;
         MinimumSpanningTree kruskalMinimumSpanningTree(int) const;
@@ -256,6 +257,18 @@ bool WeightedGraph<V>::relax(WeightedEdge * e, std::vector<double> & distances, 
     if (distances[u] + weight < distances[v]) {
         distances[v] = distances[u] + weight;
         parent[v] = u;
+        return true;
+    }
+    return false;
+}
+
+template <class V> 
+bool WeightedGraph<V>::hasNegativeCycle() const {
+    try {
+        bellmanFordShortestPath(0);
+    }
+    catch (std::invalid_argument &e)
+    {
         return true;
     }
     return false;
