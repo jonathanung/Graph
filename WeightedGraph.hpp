@@ -16,7 +16,6 @@
 #include <utility>
 #include <stdexcept>
 #include <numeric>
-#include "PathTracer.hpp"
 
 template <class V>
 /**
